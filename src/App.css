@@ -1,0 +1,16 @@
+body {
+  /* background: rgb(34, 47, 49);
+  background: linear-gradient(
+    104deg,
+    rgba(34, 47, 49, 1) 0%,
+    rgba(30, 33, 34, 1) 100%
+  ); */
+  background-image: url(./assets/images/bg.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+html {
+  scroll-behavior: smooth;
+}
