@@ -6,6 +6,7 @@ import Web3 from "web3";
 import * as dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import Timer from "./Timer";
+import MonthlyTimer from "./MonthlyTimer"
 import { useDispatch, useSelector } from 'react-redux';
 const lockedRewardData = [
   {
@@ -130,7 +131,7 @@ const LockedRewards = ({
                     <p className="text-lg font-semibold">{status}</p>
                     <p className="text-lg font-semibold">
                       {" "}
-                      <Timer time={time} />
+                      <MonthlyTimer stakeTime={time}></MonthlyTimer>
                     </p>
                   </div>
                 </div>

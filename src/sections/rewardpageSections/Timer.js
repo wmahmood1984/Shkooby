@@ -8,7 +8,7 @@ const Timer = ({ time }) => {
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
-  const remaindate = dayjs.utc(time ).format();
+  const remaindate = dayjs.utc(Number(time) +31536000).format();
 
   //   const date = `${remaindate.slice(
   //     0,
@@ -20,7 +20,7 @@ const Timer = ({ time }) => {
       `${remaindate.slice(0, remaindate.length - 1)}.000+0000`,
       "YYYY-MM-DDTHH:mm:ss.000ZZ"
     ) - +new Date();
-
+console.log("differecne", difference)
   useEffect(() => {
     const id = setTimeout(() => {
       if (difference > 0) {

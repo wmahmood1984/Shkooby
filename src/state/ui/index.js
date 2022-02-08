@@ -410,8 +410,8 @@ export const balance = createAsyncThunk("balance",
 			const balance2 = await contract.methods.StakMapping(address,2).call()
 			const balance3 = await contract.methods.StakMapping(address,3).call()
 
-			const unClaimedReward2 = balance2 == 0? null: await contract.methods.calculateReward(2).call({from:address})
-			const unClaimedReward3 = balance3 == 0? null:  await contract.methods.calculateReward(3).call({from:address})
+			const unClaimedReward2 = balance2 == 0? null: await contract.methods.calculateReward(1).call({from:address})
+			const unClaimedReward3 = balance3 == 0? null:  await contract.methods.calculateReward(1).call({from:address})
 			
 			const UserDetails = await contract.methods.getUserDetails().call({from:address})
 			console.log("user details ", UserDetails)
@@ -446,6 +446,7 @@ export const balance = createAsyncThunk("balance",
 
 		
         try {
+			console.log("id in redux",stakeId)
 			var aQ = web3.utils.toWei(quantity.toString(),"ether")
 			const result = await contract.methods.staking(aQ,stakeId).send({from:address})
 

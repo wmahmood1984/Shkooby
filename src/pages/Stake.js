@@ -43,6 +43,10 @@ const Stake = ({
     return state.adoptReducer.approved;
   });
 
+  const toggle = useSelector((state)=>{
+    return state.adoptReducer.toggle;
+  });
+
   console.log("approved",approved)
 
   useEffect(() => {
@@ -50,7 +54,7 @@ const Stake = ({
       dispatch(initWeb3())
     
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [approved]);
+  }, [approved,toggle]);
 
   const pending = useSelector((state)=>{
     return state.adoptReducer.pending;

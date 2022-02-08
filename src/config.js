@@ -2,6 +2,57 @@ export const contractAbi = [
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "percent",
+				"type": "uint256"
+			}
+		],
+		"name": "changeTotalReward",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_poolType",
+				"type": "uint256"
+			}
+		],
+		"name": "claimReward",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "quantity",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_poolType",
+				"type": "uint256"
+			}
+		],
+		"name": "staking",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "transferClaimedToken",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "_token",
 				"type": "address"
@@ -16,98 +67,16 @@ export const contractAbi = [
 		"type": "constructor"
 	},
 	{
-		"inputs": [],
-		"name": "AnnualPersonalReward",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "ClaimedReward",
-		"outputs": [
-			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "_poolType",
 				"type": "uint256"
 			}
 		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "FlexPS",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "SMPS",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "StakMapping",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "TMPS",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
+		"name": "unStaking",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -126,6 +95,19 @@ export const contractAbi = [
 	{
 		"inputs": [],
 		"name": "_rewardSub",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "AnnualPersonalReward",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -158,32 +140,38 @@ export const contractAbi = [
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "percent",
-				"type": "uint256"
+				"internalType": "address",
+				"name": "",
+				"type": "address"
 			}
 		],
-		"name": "changeTotalReward",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
+		"name": "ClaimedReward",
+		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "_poolType",
+				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "claimReward",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [],
 		"name": "currentTime",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "FlexPS",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -272,7 +260,7 @@ export const contractAbi = [
 								"type": "uint256"
 							}
 						],
-						"internalType": "struct ShkoobyStaking.MFT",
+						"internalType": "struct ShkoobyStaking.LockedStruct",
 						"name": "one",
 						"type": "tuple"
 					},
@@ -294,7 +282,7 @@ export const contractAbi = [
 								"type": "uint256"
 							}
 						],
-						"internalType": "struct ShkoobyStaking.MFT",
+						"internalType": "struct ShkoobyStaking.LockedStruct",
 						"name": "two",
 						"type": "tuple"
 					},
@@ -316,12 +304,12 @@ export const contractAbi = [
 								"type": "uint256"
 							}
 						],
-						"internalType": "struct ShkoobyStaking.MFT",
+						"internalType": "struct ShkoobyStaking.LockedStruct",
 						"name": "three",
 						"type": "tuple"
 					}
 				],
-				"internalType": "struct ShkoobyStaking.mftArray",
+				"internalType": "struct ShkoobyStaking.LockedStructArray",
 				"name": "",
 				"type": "tuple"
 			}
@@ -492,21 +480,40 @@ export const contractAbi = [
 		"type": "function"
 	},
 	{
-		"inputs": [
+		"inputs": [],
+		"name": "SMPS",
+		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "quantity",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_poolType",
+				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "staking",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "StakMapping",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -523,6 +530,19 @@ export const contractAbi = [
 			}
 		],
 		"name": "timeIn",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "TMPS",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -600,26 +620,6 @@ export const contractAbi = [
 	},
 	{
 		"inputs": [],
-		"name": "transferClaimedToken",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_poolType",
-				"type": "uint256"
-			}
-		],
-		"name": "unStaking",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
 		"name": "uniswapV2Pair",
 		"outputs": [
 			{
@@ -658,7 +658,7 @@ export const contractAbi = [
 ];
 // export const contractAddress = "0xD73eE48F78da0B851892A60772acC9d0218374FE";
 // export const contractAddress = "0x25A0d5147BaF36D6DE8d85EA461162810870Dd74";
-export const contractAddress = "0x55fAe64F48099147f8Eb5765BC66E3310Bfd8676";
+export const contractAddress = "0x98C72133DD3fc6F62a689450f6d72dfEce1b04db";
 
 
 
@@ -666,4 +666,3 @@ export const contractAddress = "0x55fAe64F48099147f8Eb5765BC66E3310Bfd8676";
 // LP pool address 0x360e4ddb59b1e02e7a81bffd3cac7f1fe7fec73a
 
 
-//staking address 0x55fAe64F48099147f8Eb5765BC66E3310Bfd8676
