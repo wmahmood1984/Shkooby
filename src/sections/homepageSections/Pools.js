@@ -23,6 +23,8 @@ const Pools = ({
   const [poolData, setPoolData] = useState([]);
   // console.log(poolData);
   // console.log(poolIds);
+  
+
   useEffect(() => {
     try {
       if (contract) {
@@ -44,8 +46,9 @@ const Pools = ({
   // console.log(poolData);
   const poolsData = [
     {
+      
       img: Slogo,
-      title: "Flexi Pool",
+      title: "Shkooby Pool",
       btn: [
         {
           type: "outline",
@@ -59,7 +62,7 @@ const Pools = ({
     },
     {
       img: Slogo,
-      title: "3 Months Pool",
+      title: "Shkooby Eth Pool",
       btn: [
         {
           type: "outline",
@@ -71,20 +74,20 @@ const Pools = ({
         },
       ],
     },
-    {
-      img: Slogo,
-      title: "6 Months Pool",
-      btn: [
-        {
-          type: "outline",
-          content: "Details",
-        },
-        {
-          type: "filled",
-          content: "Stake",
-        },
-      ],
-    },
+    // {
+    //   img: Slogo,
+    //   title: "6 Months Pool",
+    //   btn: [
+    //     {
+    //       type: "outline",
+    //       content: "Details",
+    //     },
+    //     {
+    //       type: "filled",
+    //       content: "Stake",
+    //     },
+    //   ],
+    // },
   ];
 
   return (
@@ -107,7 +110,7 @@ const Pools = ({
                   </div>
                   <div className="flex items-center ml-5 sm:ml-0">
                     <Link
-                      to={`/details/${poolIds[index]}/${
+                      to={`/details${index}/${index}/ ${
                         index === 0 ? "flexi" : "locked"
                       }`}
                     >
@@ -118,7 +121,7 @@ const Pools = ({
                         {"Details"}
                       </MiniButton>
                     </Link>
-                    <Link to={`stake/${poolIds[index]}`}>
+                    <Link to={`stake${index}/1`}>
                       <MiniButton
                         type={"filled"}
                         // onClick={() => stackHandler(index, isFlex, val)}

@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import Web3 from "web3";
 import { useDispatch, useSelector } from 'react-redux';
-import { claimF,unStaking } from "../../state/ui";
+import { claimF,unStaking,claimF2,unStaking2 } from "../../state/ui";
 // import InformationModal from "../components/modals/InformationModal";
 // import ConfirmationModal from "../components/modals/ConfirmationModal";
 const reviewData = [
@@ -66,31 +66,41 @@ const Reward = ({
   const [totalClaimedBalance, setTotalClaimedBalance] = useState(0);
   const dispatch = useDispatch()
   useEffect(() => {
-    const getData = async () => {
-      if (contract) {
-        const totalClaimedBalance = await contract.methods
-          .getUserDetails()
-          .call({ from: account });
-        console.log(totalClaimedBalance);
-        setTotalClaimedBalance(
-          Web3.utils.fromWei(totalClaimedBalance[2], "ether")
-        );
-      }
-    };
-    getData();
+    // const getData = async () => {
+    //   if (contract) {
+    //     const totalClaimedBalance = await contract.methods
+    //       .getUserDetails()
+    //       .call({ from: account });
+    //     console.log(totalClaimedBalance);
+    //     setTotalClaimedBalance(
+    //       Web3.utils.fromWei(totalClaimedBalance[2], "ether")
+    //     );
+    //   }
+    // };
+    // getData();
   }, []);
   
   const stakesDetails = useSelector((state)=>{
-    // var abc = []
-    // for(var i = 0; i <3;i++){
-    //   if(state.adoptReducer.UserDetails && state.adoptReducer.UserDetails[i]>0){
-    //     abc.push({id: i+1,val:state.adoptReducer.UserDetails[i]})
-    //   }
-    // }
+
     return state.adoptReducer.UserDetails;
   });
 
-  console.log("details",stakesDetails)
+
+  const stakesDetails2 = useSelector((state)=>{
+    return state.adoptReducer.UserDetails2;
+  });
+
+
+  const claimed = useSelector((state)=>{
+    var shk = Number(state.adoptReducer.claimedReward)
+    var shk_ETH = Number(state.adoptReducer.claimedReward2) 
+    return (shk+shk_ETH)/1000000000000000000
+  });
+
+  console.log("claimed",claimed)
+
+  console.log("details 2",stakesDetails2)
+  console.log("details 1",stakesDetails)
   
   const claim = (stakeId)=>{
     
@@ -102,6 +112,21 @@ const Reward = ({
   const unStake = (stakeId)=>{
     
     dispatch(unStaking({stakeId}))
+    
+  }
+
+
+
+  const claim2 = (stakeId)=>{
+    
+    dispatch(claimF2({stakeId}))
+    
+  }
+
+
+  const unStake2 = (stakeId)=>{
+    
+    dispatch(unStaking2({stakeId}))
     
   }
   
@@ -209,7 +234,7 @@ const Reward = ({
               Claimed Rewards
             </p>
             <p className="font-bold text-xl md:text-3xl mt-4">
-              {totalClaimedBalance} SHKOOBY
+              {claimed.toFixed(0)} SHKOOBY
             </p>
           </div>
         </div>
@@ -235,8 +260,7 @@ const Reward = ({
             </div>
           </div>
           <div className="mt-10">
-            {stakesDetails &&
-              stakesDetails.map((v, i) => {
+            {stakesDetails && stakesDetails.map((v, i) => {
   
                 const value = reviewData[0];
                 // const date = dayjs
@@ -295,7 +319,7 @@ const Reward = ({
                         </button>
                         <button
                           className="bg-secondary ml-2 py-2 px-4 rounded-md"
-                          onClick={() => unStake(v[0][0])}
+                          onClick={() => unStake(v.id)}
                         >
                           UnStake
                         </button>
@@ -304,6 +328,78 @@ const Reward = ({
                   </div>
                 );
               })}
+
+
+
+            {stakesDetails2 && stakesDetails2.map((v, i) => {
+              
+              const value = reviewData[0];
+              // const date = dayjs
+              //   .utc(Number(v[2]) * 1000)
+              //   .format()
+              //   .slice(0, 10);
+              // const date2 =
+              //   Number(v[2]) === 0
+              //     ? "Never"
+              //     : dayjs
+              //         .utc(Number(v[2]) * 1000)
+              //         .format()
+              //         .slice(0, 10);
+              const stackBalance = v.staked/1000000000000000000;
+              const claimableBalance = (v.unClaimed/1000000000000000000).toFixed(0)//Web3.utils.fromWei(v[0][5], "ether");
+              const totalRewards = (v.unClaimed/1000000000000000000).toFixed(5)//Web3.utils.fromWei(v[0][3], "ether");
+
+              return (
+                <div
+                  className=" bg-dark-500 rounded-md py-6 px-6 grid grid-cols-2 items-center mb-6 gap-20"
+                  key={i}
+                >
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center">
+                      <img src={value.img} alt="" />
+                      <p className="ml-3 font-semibold  text-lg">
+                        <p>
+                          {Number(v.id) === 1
+                            ? `Flexi Pool`
+                            : `Locked Pool ${v.id==2? 30:90} Days`}
+                        </p>
+                        {/* <p className="text-xs block text-primary">
+                          Created: {date}
+                        </p> */}
+                      </p>
+                    </div>
+                    <p className="ml-3 font-semibold  text-lg">
+                      <p>{stackBalance} SHK ETH</p>
+                    </p>
+                  </div>
+                  <div className=" flex items-center  justify-between">
+                    <p className="text-lg font-semibold">{totalRewards}</p>
+                    <p className="text-lg font-semibold">
+                      {" "}
+                      <p>{claimableBalance}</p>{" "}
+                      {/* <p className="text-xs text-primary">
+                        Last Claimed: {date2}
+                      </p> */}
+                    </p>
+                    <div className="grid grid-flow-col justify-end">
+                      <button
+                        className="bg-primary py-2 px-4 rounded-md"
+                        onClick={() => claim2(v.id)}
+                      >
+                        Claim
+                      </button>
+                      <button
+                        className="bg-secondary ml-2 py-2 px-4 rounded-md"
+                        onClick={() => unStake2(v.id)}
+                      >
+                        UnStake
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+              
           </div>
         </div>
       </div>

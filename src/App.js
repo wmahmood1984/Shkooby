@@ -20,7 +20,9 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import Details from "./pages/Details";
+import Details2 from "./pages/Details2";
 import Stake from "./pages/Stake";
+import Stake2 from "./pages/Stake2";
 import { useDispatch, useSelector } from 'react-redux';
 import { initWeb3 } from "./state/ui";
 toast.configure();
@@ -200,7 +202,7 @@ function App() {
             <Route path="leaderboard" element={<LeaderBoard />} />
             <Route path="swap" element={<Swap />} />
             <Route
-              path="details/:id/:type"
+              path="details0/:id/:type"
               element={
                 <Details
                   contract={contract}
@@ -213,7 +215,20 @@ function App() {
               }
             />
             <Route
-              path="stake/:id"
+              path="details1/:id/:type"
+              element={
+                <Details2
+                  contract={contract}
+                  contract2={contract2}
+                  contractAddress={contractAddress}
+                  contractAddress2={contractAddress2}
+                  poolIds={poolIds}
+                  account={account}
+                />
+              }
+            />
+            <Route
+              path="stake0/:id"
               element={
                 <Stake
                   contract={contract}
@@ -225,7 +240,21 @@ function App() {
                 />
               }
             />
+            <Route
+              path="stake1/:id"
+              element={
+                <Stake2
+                  contract={contract}
+                  contract2={contract2}
+                  contractAddress={contractAddress}
+                  contractAddress2={contractAddress2}
+                  poolIds={poolIds}
+                  account={account}
+                />
+              }
+            />
           </Routes>
+          
         </Layout>
       </BrowserRouter>
       <Modal

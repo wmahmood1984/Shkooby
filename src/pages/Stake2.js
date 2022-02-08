@@ -10,10 +10,10 @@ import ConfirmationModal from "../components/modals/ConfirmationModal";
 import "rc-slider/assets/index.css";
 import Web3 from "web3";
 import { useDispatch, useSelector } from 'react-redux';
-import { Approve, Staking } from "../state/ui";
+import { Approve2, Staking2 } from "../state/ui";
 import { initWeb3 } from "../state/ui/index";
 const { Handle } = Slider;
-const Stake = ({
+const Stake2 = ({
   contract,
   contract2,
   contractAddress,
@@ -40,7 +40,7 @@ const Stake = ({
   // const [lockedDetails, setLockedDetails] = useState([]);
   const dispatch = useDispatch()
   const approved = useSelector((state)=>{
-    return state.adoptReducer.approved;
+    return state.adoptReducer.approved2;
   });
 
   const toggle = useSelector((state)=>{
@@ -64,7 +64,6 @@ const Stake = ({
   const APY = useSelector((state)=>{
     return state.adoptReducer.APY;
   });
-
 
 
 
@@ -200,13 +199,13 @@ const Stake = ({
 
   const approveHandler = ()=>{
     
-    dispatch(Approve({quantity:stackValue}))
+    dispatch(Approve2({quantity:stackValue}))
     setStackValue("")
   }
 
   const stakingHandler = (stakeId)=>{
     //console.log("staking id in function",stakeId)
-    dispatch(Staking({quantity: stackValue, stakeId}))
+    dispatch(Staking2({quantity: stackValue, stakeId}))
     setStackValue("")
   }
 
@@ -337,7 +336,7 @@ const Stake = ({
           // ref={modalRef}
         >
           <h1 className=" text-left font-bold text-xl md:text-3xl mt-0">
-            SHKOOBY
+            SHKOOBY ETH LP
           </h1>
 
           <div className=" grid grid-cols-2 mt-5">
@@ -425,7 +424,7 @@ const Stake = ({
   );
 };
 
-export default Stake;
+export default Stake2;
 
 const StackInput = ({ stackValue, inputHandler }) => (
   <form action="" onSubmit={(e) => e.preventDefault()}>

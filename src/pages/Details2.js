@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { PrimaryBtn } from "../components/button";
 import { useDispatch, useSelector } from 'react-redux';
-const Details = ({
+const Details2 = ({
   contract,
   contract2,
   contractAddress,
@@ -16,22 +16,23 @@ const Details = ({
   const [details, setDetails] = useState({});
   console.log("type", type);
   console.log("address", contractAddress2);
+  
   const claimedReward = useSelector((state)=>{
-    return state.adoptReducer.claimedReward;
+    return state.adoptReducer.claimedReward2;
   });
 
 
   const totalStaked = useSelector((state)=>{
    
     
-    return state.adoptReducer.totalStaked;
+    return state.adoptReducer.totalStaked2;
   });
 
 
   const totalClaimed = useSelector((state)=>{
    
     
-    return state.adoptReducer.totalClaimed;
+    return state.adoptReducer.totalClaimed2;
   });
 
 
@@ -39,7 +40,7 @@ const Details = ({
   const stakedBalance = useSelector((state)=>{
     
 
-    var total = Number(state.adoptReducer.balance1) + Number(state.adoptReducer.balance2) + Number(state.adoptReducer.balance3) 
+    var total = Number(state.adoptReducer.balance12) + Number(state.adoptReducer.balance22) + Number(state.adoptReducer.balance32) 
     
     return total
   });
@@ -50,12 +51,9 @@ const Details = ({
     return state.adoptReducer.address;
   });
 
-  const lockedRewardFetched = useSelector( (state)=>{
-    var reward =  state.adoptReducer.lockedRewardFetched;
-    return reward
-  });
 
-  console.log("lock",lockedRewardFetched)
+
+
 
   const web3 = useSelector( (state)=>{
     return state.adoptReducer.web3;
@@ -63,7 +61,7 @@ const Details = ({
   });
   
   const APY = useSelector( (state)=>{
-    return state.adoptReducer.APY;
+    return state.adoptReducer.APY2;
     
   });
 
@@ -162,7 +160,7 @@ const Details = ({
                       <p className=" text-sm sm:text-base">TVL : {totalStaked && (Number(totalStaked))/1000000000000000000} SHKOOBY</p><br/>
                     </div>
                     <div className=" text-left">
-                      <p className=" text-sm sm:text-base">Rewards Claimed {totalClaimed && ((Number(totalClaimed))/1000000000000000000).toFixed(0)}:</p>
+                      <p className=" text-sm sm:text-base">Rewards Claimed : {totalClaimed && ((Number(totalClaimed))/1000000000000000000).toFixed(0)}</p>
                     </div>
                     <div className=" text-left">
                       <p className=" text-sm sm:text-base">Avg APR: {APY && APY/10000}%</p>
@@ -178,7 +176,7 @@ const Details = ({
               </ul>
             </div>
             <div className="mt-10 text-center">
-              <Link to={`/stake0/${id}`} className="  primary-btn ">
+              <Link to={`/stake1/${id}`} className="  primary-btn ">
                 <PrimaryBtn>Stake</PrimaryBtn>
               </Link>
             </div>
@@ -189,4 +187,4 @@ const Details = ({
   );
 };
 
-export default Details;
+export default Details2;

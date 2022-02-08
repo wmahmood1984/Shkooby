@@ -26,13 +26,30 @@ const Overview = ({ setStackOpen, stakeOpen, account, contract, loadWeb3 }) => {
     return total
   });
 
+
+  const stakedBalance2 = useSelector((state)=>{
+    
+
+    var total = Number(state.adoptReducer.balance12) + Number(state.adoptReducer.balance22) + Number(state.adoptReducer.balance32) 
+    
+    return total
+  });
+
   console.log("balance",stakedBalance)
 
 
   const unClaimed = useSelector((state)=>{
     
 
-    var total = Number(state.adoptReducer.unClaimedReward1) + Number(state.adoptReducer.unClaimedReward1) + Number(state.adoptReducer.unClaimedReward1) 
+    var total = Number(state.adoptReducer.unClaimedReward1) + Number(state.adoptReducer.unClaimedReward2) + Number(state.adoptReducer.unClaimedReward3) 
+    
+    return total
+  });
+
+  const unClaimed2 = useSelector((state)=>{
+    
+
+    var total = Number(state.adoptReducer.unClaimedReward12) + Number(state.adoptReducer.unClaimedReward2) + Number(state.adoptReducer.unClaimedReward32) 
     
     return total
   });
@@ -167,12 +184,14 @@ const Overview = ({ setStackOpen, stakeOpen, account, contract, loadWeb3 }) => {
         <div className="grid grid-cols-1 gap-10 sm:gap-0 sm:grid-cols-2 md:mx-20  xl:mx-60 mt-10">
           <OverviewContent
             price={`SHKOOBY ${(stakedBalance/1000000000000000000).toFixed(0)}`}
+            price2={`SHK-ETH ${(stakedBalance2/1000000000000000000).toFixed(0)}`}
             account={account}
             loadWeb3={loadWeb3}
           />
           <OverviewContent
             title="YOUR UNCLAIMED REWARDS"
             price={`SHKOOBY ${(unClaimed/1000000000000000000).toFixed(0)}`}
+            price2={`SHKOOBY ${(unClaimed2/1000000000000000000).toFixed(0)}`}
             btn="secondary"
             btnText="Claim"
             disable={true}
@@ -205,6 +224,7 @@ export default Overview;
 const OverviewContent = ({
   title = "YOUR STAKED BALANCE",
   price = "SHKOOBY 2,42,05,434",
+  price2, 
   btn = "primary",
   btnText = "Stake",
   disable = false,
@@ -214,6 +234,7 @@ const OverviewContent = ({
   <div className=" text-center">
     <h6 className="font-semibold text-primary text-xl md:text-2xl">{title}</h6>
     <p className="font-semibold text-sm md:text-base my-6">{price}</p>
+    <p className="font-semibold text-sm md:text-base my-6">{price2}</p>
 
     {btn === "primary" ? (
       <>

@@ -32,16 +32,23 @@ const LockedRewards = ({
   // const [minutes, setMinutes] = useState(0);
   // const [seconds, setSeconds] = useState(0);
   const lockReward = useSelector((state)=>{
-    // var abc = []
-    // for(var i = 0; i <3;i++){
-    //   if(state.adoptReducer.UserDetails && state.adoptReducer.UserDetails[i]>0){
-    //     abc.push({id: i+1,val:state.adoptReducer.UserDetails[i]})
-    //   }
-    // }
+  
     return state.adoptReducer.lockreward;
   });
 
-  console.log("lock reward ", lockReward)
+
+  const lockReward2 = useSelector((state)=>{
+  
+    return state.adoptReducer.lockreward2;
+  });
+
+
+  const price = useSelector((state)=>{
+  
+    return state.adoptReducer.price;
+  });
+
+  console.log("lock reward ", lockReward2)
   useEffect(() => {
     const getData = async () => {
       try {
@@ -94,7 +101,7 @@ const LockedRewards = ({
               <p className="text-lg font-medium">Dollar Value</p>
             </div>
             <div className="flex justify-evenly items-center col-span-6">
-              <p className="text-lg font-medium">Status</p>
+              {/* <p className="text-lg font-medium">Status</p> */}
               <p className="text-lg font-medium">Time Remaining</p>
             </div>
           </div>
@@ -102,7 +109,7 @@ const LockedRewards = ({
             {lockReward && lockReward.map((v, i) => {
               const val = lockedRewardData[0];
               const amount = (v.reward/1000000000000000000).toFixed(0);
-              const dollarValue = Number(amount) * 0.00000001727;
+              const dollarValue = Number(amount) * price/1000000000000000000000000000000000000;
               const status =
                 Number(v[0][3]) === 0
                   ? "Pending"
@@ -124,11 +131,55 @@ const LockedRewards = ({
                   <div className="flex justify-between items-center col-span-3">
                     <p className="ml-3 font-semibold  text-lg">{amount}</p>
                     <p className="ml-3 font-semibold  text-lg">
-                      $ {dollarValue.toFixed(6)}
+                      $ {dollarValue.toFixed(5)}
                     </p>
                   </div>
                   <div className=" flex items-center  justify-evenly col-span-6">
-                    <p className="text-lg font-semibold">{status}</p>
+                    {/* <p className="text-lg font-semibold">{status}</p> */}
+                    <p className="text-lg font-semibold">
+                      {" "}
+                      <MonthlyTimer stakeTime={time}></MonthlyTimer>
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+
+
+
+          <div className="mt-10">
+            {lockReward2 && lockReward2.map((v, i) => {
+              const val = lockedRewardData[0];
+              const amount = (Number(v.reward)/1000000000000000000).toFixed(0);
+              const dollarValue = Number(amount) * price/1000000000000000000000000000000000000;
+              const status =
+                Number(v[0][3]) === 0
+                  ? "Pending"
+                  : Number(v[0][3]) === 1
+                  ? "Claimed"
+                  : "UnKnown";
+
+              const time = Number(v.timeOut);
+              console.log(time);
+              return (
+                <div
+                  className=" bg-dark-500 rounded-md py-6 px-6 grid grid-cols-12 items-center mb-6 gap-10"
+                  key={i}
+                >
+                  <div className="flex items-center col-span-3">
+                    <img src={val.img} alt="" />
+                    <p className="ml-3 font-semibold  text-lg">{val.name}</p>
+                  </div>
+                  <div className="flex justify-between items-center col-span-3">
+                    <p className="ml-3 font-semibold  text-lg">{amount}</p>
+                    <p className="ml-3 font-semibold  text-lg">
+                      $ {dollarValue.toFixed(5)}
+                    </p>
+                  </div>
+                  <div className=" flex items-center  justify-evenly col-span-6">
+                    {/* <p className="text-lg font-semibold">{status}</p> */}
                     <p className="text-lg font-semibold">
                       {" "}
                       <MonthlyTimer stakeTime={time}></MonthlyTimer>

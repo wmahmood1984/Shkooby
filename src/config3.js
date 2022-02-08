@@ -1,14 +1,14 @@
-export const contractAbi = [
+export const contractAbi3 = [
 	{
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "_token",
+				"name": "_rewardingToken",
 				"type": "address"
 			},
 			{
 				"internalType": "address",
-				"name": "v2pair",
+				"name": "_token",
 				"type": "address"
 			},
 			{
@@ -174,28 +174,9 @@ export const contractAbi = [
 						"type": "uint256"
 					}
 				],
-				"internalType": "struct ShkoobyStaking.LStruct[]",
+				"internalType": "struct ShkoobyLPStaking.LStruct[]",
 				"name": "",
 				"type": "tuple[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "amountIn",
-				"type": "uint256"
-			}
-		],
-		"name": "getPrice",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -225,7 +206,7 @@ export const contractAbi = [
 								"type": "uint256"
 							}
 						],
-						"internalType": "struct ShkoobyStaking.DetailsStruct",
+						"internalType": "struct ShkoobyLPStaking.DetailsStruct",
 						"name": "one",
 						"type": "tuple"
 					},
@@ -247,7 +228,7 @@ export const contractAbi = [
 								"type": "uint256"
 							}
 						],
-						"internalType": "struct ShkoobyStaking.DetailsStruct",
+						"internalType": "struct ShkoobyLPStaking.DetailsStruct",
 						"name": "two",
 						"type": "tuple"
 					},
@@ -269,12 +250,12 @@ export const contractAbi = [
 								"type": "uint256"
 							}
 						],
-						"internalType": "struct ShkoobyStaking.DetailsStruct",
+						"internalType": "struct ShkoobyLPStaking.DetailsStruct",
 						"name": "three",
 						"type": "tuple"
 					}
 				],
-				"internalType": "struct ShkoobyStaking.DetailsStructArray",
+				"internalType": "struct ShkoobyLPStaking.DetailsStructArray",
 				"name": "",
 				"type": "tuple"
 			}
@@ -419,6 +400,19 @@ export const contractAbi = [
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "rewardingToken",
+		"outputs": [
+			{
+				"internalType": "contract IERC202",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -465,7 +459,7 @@ export const contractAbi = [
 		"name": "token",
 		"outputs": [
 			{
-				"internalType": "contract IERC20",
+				"internalType": "contract IUniswapV2ERC20",
 				"name": "",
 				"type": "address"
 			}
@@ -546,19 +540,6 @@ export const contractAbi = [
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "uniswapV2Pair",
-		"outputs": [
-			{
-				"internalType": "contract IUniswapV2Pair",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -583,13 +564,7 @@ export const contractAbi = [
 		"type": "function"
 	}
 ];
+
 // export const contractAddress = "0xD73eE48F78da0B851892A60772acC9d0218374FE";
 // export const contractAddress = "0x25A0d5147BaF36D6DE8d85EA461162810870Dd74";
-export const contractAddress = "0x81FF6D656883Af1f461054801f8b2b3532Af9Ef5";
-
-
-
-//Shkooby Address 0x11B75688CE80508151d1022aDFEC86C23Bac2b18
-// LP pool address 0x360e4ddb59b1e02e7a81bffd3cac7f1fe7fec73a
-
-
+export const contractAddress3 = "0x28EB417977D661b6e07615C5041FBA629C7adda9";
