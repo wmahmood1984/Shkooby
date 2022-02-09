@@ -1,1 +1,1 @@
-ShkoobyWM.surge.sh
+shkoobyWM.surge.sh
