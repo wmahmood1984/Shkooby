@@ -250,7 +250,7 @@ const Reward = ({
           <div className="grid grid-cols-2 gap-20 px-10">
             <div className="flex items-center justify-between">
               <p className=" font-medium text-lg">Core Pools</p>
-              <p className="font-medium text-lg">SHKOOBY Stacked</p>
+              <p className="font-medium text-lg">SHKOOBY Staked</p>
             </div>
             <div className="flex items-center justify-between">
               <p className=" font-medium text-lg">Total Rewards</p>
