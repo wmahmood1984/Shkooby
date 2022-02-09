@@ -69,7 +69,7 @@ const Details = ({
 
 //   var lockedRewardofAccount = lockedRewardFetched.filter(item=>item.claimer==address)
 //   var amounts = lockedRewardofAccount.map(transaction => web3.utils.fromWei(transaction.reward,"ether") );
-//   var total = amounts.reduce((acc,item) => (acc+=Number(item)),0).toFixed(0);
+//    
 // console.log("amounts",total)
 
   useEffect(() => {
