@@ -40,6 +40,19 @@ export const contractAbi3 = [
 		"type": "event"
 	},
 	{
+		"inputs": [],
+		"name": "Admin",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -53,6 +66,19 @@ export const contractAbi3 = [
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "Emergency",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -619,4 +645,4 @@ export const contractAbi3 = [
 
 // export const contractAddress = "0xD73eE48F78da0B851892A60772acC9d0218374FE";
 // export const contractAddress = "0x25A0d5147BaF36D6DE8d85EA461162810870Dd74";
-export const contractAddress3 = "0x6f704f516c3119956403997Bd3868aE903Eb2996";
+export const contractAddress3 = "0x7c8cF036c71256964Ca854eE594b8ab3C2D8F527";

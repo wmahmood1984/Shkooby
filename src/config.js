@@ -40,6 +40,19 @@ export const contractAbi = [
 		"type": "event"
 	},
 	{
+		"inputs": [],
+		"name": "Admin",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -650,7 +663,7 @@ export const contractAbi = [
 ];
 // export const contractAddress = "0xD73eE48F78da0B851892A60772acC9d0218374FE";
 // export const contractAddress = "0x25A0d5147BaF36D6DE8d85EA461162810870Dd74";
-export const contractAddress = "0x1b839F17CD87ecc0E533B0f36e2c00e617EE4CB0";
+export const contractAddress = "0xB0C6c84064Dec72982030436D9DAC3FBb53D6D2D";
 
 
 
