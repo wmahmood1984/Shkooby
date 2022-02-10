@@ -60,6 +60,19 @@ export const contractAbi = [
 	},
 	{
 		"inputs": [],
+		"name": "Emergency",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "FlexPS",
 		"outputs": [
 			{
@@ -69,6 +82,19 @@ export const contractAbi = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bool",
+				"name": "emergency",
+				"type": "bool"
+			}
+		],
+		"name": "ModifyEmergency",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -624,7 +650,7 @@ export const contractAbi = [
 ];
 // export const contractAddress = "0xD73eE48F78da0B851892A60772acC9d0218374FE";
 // export const contractAddress = "0x25A0d5147BaF36D6DE8d85EA461162810870Dd74";
-export const contractAddress = "0x021b968DF3bcECe4180019B917895190D695b7a9";
+export const contractAddress = "0x1b839F17CD87ecc0E533B0f36e2c00e617EE4CB0";
 
 
 

@@ -72,6 +72,19 @@ export const contractAbi3 = [
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "bool",
+				"name": "emergency",
+				"type": "bool"
+			}
+		],
+		"name": "ModifyEmergency",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "SMPS",
 		"outputs": [
@@ -606,4 +619,4 @@ export const contractAbi3 = [
 
 // export const contractAddress = "0xD73eE48F78da0B851892A60772acC9d0218374FE";
 // export const contractAddress = "0x25A0d5147BaF36D6DE8d85EA461162810870Dd74";
-export const contractAddress3 = "0xb0991382545aDF084563749975C896C5d01E6448";
+export const contractAddress3 = "0x6f704f516c3119956403997Bd3868aE903Eb2996";
