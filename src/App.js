@@ -149,138 +149,144 @@ function App() {
       window.location.reload();
     });
   };
+const networkId = useSelector((s)=>{
+  return s.adoptReducer.networkId
+})
+
   return (
+ 
     <div className="App">
-      <BrowserRouter>
-        <Layout
-          showLogin={showLogin}
-          setShowLogin={setShowLogin}
-          account={account}
-          totalSupply={totalSupply}
-          displayPrice={displayPrice}
-          loadWeb3={loadWeb3}
-          maxSupply={maxSupply}
-          showLogout={showLogout}
-          setShowLogout={setShowLogout}
-        >
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Home
-                  contract={contract}
-                  contract2={contract2}
-                  contractAddress={contractAddress}
-                  contractAddress2={contractAddress2}
-                  poolIds={poolIds}
-                  account={account}
-                  stackOpen={stackOpen}
-                  setStackOpen={setStackOpen}
-                  stackDetailOpen={stackDetailOpen}
-                  setStackDetailOpen={setStackDetailOpen}
-                  loadWeb3={loadWeb3}
-                />
-              }
-            />
-            <Route
-              path="rewards"
-              element={
-                <Reward
-                  contract={contract}
-                  contract2={contract2}
-                  contractAddress={contractAddress}
-                  contractAddress2={contractAddress2}
-                  poolIds={poolIds}
-                  account={account}
-                  stackOpen={stackOpen}
-                  setStackOpen={setStackOpen}
-                  stackDetailOpen={stackDetailOpen}
-                  setStackDetailOpen={setStackDetailOpen}
-                />
-              }
-            />
-            <Route path="leaderboard" element={<LeaderBoard />} />
-            <Route path="swap" element={<Swap />} />
-            <Route
-              path="details0/:id/:type"
-              element={
-                <Details
-                  contract={contract}
-                  contract2={contract2}
-                  contractAddress={contractAddress}
-                  contractAddress2={contractAddress2}
-                  poolIds={poolIds}
-                  account={account}
-                />
-              }
-            />
-            <Route
-              path="details1/:id/:type"
-              element={
-                <Details2
-                  contract={contract}
-                  contract2={contract2}
-                  contractAddress={contractAddress}
-                  contractAddress2={contractAddress2}
-                  poolIds={poolIds}
-                  account={account}
-                />
-              }
-            />
-            <Route
-              path="stake0/:id"
-              element={
-                <Stake
-                  contract={contract}
-                  contract2={contract2}
-                  contractAddress={contractAddress}
-                  contractAddress2={contractAddress2}
-                  poolIds={poolIds}
-                  account={account}
-                />
-              }
-            />
-            <Route
-              path="stake1/:id"
-              element={
-                <Stake2
-                  contract={contract}
-                  contract2={contract2}
-                  contractAddress={contractAddress}
-                  contractAddress2={contractAddress2}
-                  poolIds={poolIds}
-                  account={account}
-                />
-              }
-            />
-          </Routes>
-          
-        </Layout>
-      </BrowserRouter>
-      <Modal
+    <BrowserRouter>
+      <Layout
         showLogin={showLogin}
         setShowLogin={setShowLogin}
+        account={account}
+        totalSupply={totalSupply}
+        displayPrice={displayPrice}
         loadWeb3={loadWeb3}
-      />
-      <LogoutModal open={showLogout} setOpen={setShowLogout} />
-      <StackModal
-        open={stackOpen}
-        setOpen={setStackOpen}
-        stackDetailOpen={stackDetailOpen}
-        setStackDetailOpen={setStackDetailOpen}
-      />
-      <StackDetailModal open={stackDetailOpen} setOpen={setStackDetailOpen} />
-      <InformationModal
-        open={accessAccountDenied}
-        setOpen={setAccessAccountDenied}
-      />
-      <InformationModal
-        open={installEthereum}
-        setOpen={setInstallEthereum}
-        title="Oops"
-        desc="Please install an Ethereum-compatible browser or extension like MetaMask to use this dApp!"
-      />
+        maxSupply={maxSupply}
+        showLogout={showLogout}
+        setShowLogout={setShowLogout}
+      >
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                contract={contract}
+                contract2={contract2}
+                contractAddress={contractAddress}
+                contractAddress2={contractAddress2}
+                poolIds={poolIds}
+                account={account}
+                stackOpen={stackOpen}
+                setStackOpen={setStackOpen}
+                stackDetailOpen={stackDetailOpen}
+                setStackDetailOpen={setStackDetailOpen}
+                loadWeb3={loadWeb3}
+              />
+            }
+          />
+          <Route
+            path="rewards"
+            element={
+              <Reward
+                contract={contract}
+                contract2={contract2}
+                contractAddress={contractAddress}
+                contractAddress2={contractAddress2}
+                poolIds={poolIds}
+                account={account}
+                stackOpen={stackOpen}
+                setStackOpen={setStackOpen}
+                stackDetailOpen={stackDetailOpen}
+                setStackDetailOpen={setStackDetailOpen}
+              />
+            }
+          />
+          <Route path="leaderboard" element={<LeaderBoard />} />
+          <Route path="swap" element={<Swap />} />
+          <Route
+            path="details0/:id/:type"
+            element={
+              <Details
+                contract={contract}
+                contract2={contract2}
+                contractAddress={contractAddress}
+                contractAddress2={contractAddress2}
+                poolIds={poolIds}
+                account={account}
+              />
+            }
+          />
+          <Route
+            path="details1/:id/:type"
+            element={
+              <Details2
+                contract={contract}
+                contract2={contract2}
+                contractAddress={contractAddress}
+                contractAddress2={contractAddress2}
+                poolIds={poolIds}
+                account={account}
+              />
+            }
+          />
+          <Route
+            path="stake0/:id"
+            element={
+              <Stake
+                contract={contract}
+                contract2={contract2}
+                contractAddress={contractAddress}
+                contractAddress2={contractAddress2}
+                poolIds={poolIds}
+                account={account}
+              />
+            }
+          />
+          <Route
+            path="stake1/:id"
+            element={
+              <Stake2
+                contract={contract}
+                contract2={contract2}
+                contractAddress={contractAddress}
+                contractAddress2={contractAddress2}
+                poolIds={poolIds}
+                account={account}
+              />
+            }
+          />
+        </Routes>
+        
+      </Layout>
+    </BrowserRouter>
+    <Modal
+      showLogin={showLogin}
+      setShowLogin={setShowLogin}
+      loadWeb3={loadWeb3}
+    />
+    <LogoutModal open={showLogout} setOpen={setShowLogout} />
+    <StackModal
+      open={stackOpen}
+      setOpen={setStackOpen}
+      stackDetailOpen={stackDetailOpen}
+      setStackDetailOpen={setStackDetailOpen}
+    />
+    <StackDetailModal open={stackDetailOpen} setOpen={setStackDetailOpen} />
+    <InformationModal
+      open={accessAccountDenied}
+      setOpen={setAccessAccountDenied}
+    />
+    <InformationModal
+      open={installEthereum}
+      setOpen={setInstallEthereum}
+      title="Oops"
+      desc="Please install an Ethereum-compatible browser or extension like MetaMask to use this dApp!"
+    />
     </div>
+    
   );
 }
 

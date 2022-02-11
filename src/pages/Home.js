@@ -1,5 +1,7 @@
 import { Overview, Pools } from "../sections/homepageSections";
-
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from "react-toastify";
+import { chainID } from "../../chainID";
 const Home = ({
   account,
   contract,
@@ -13,8 +15,30 @@ const Home = ({
   contractAddress,
   loadWeb3,
 }) => {
+
+
+  const networkId = useSelector((s)=>{
+    return s.adoptReducer.networkId
+  })
+
+  window.ethereum.on("chainChanged", (_chainId) => {
+    window.location.reload();
+  });
+
+  const loadBlockchainData =  () => {
+    
+      toast("Please connect to main net", {
+        type: "error",
+        position: toast.POSITION.BOTTOM_CENTER,
+      });
+
+      return <div> <Overview></Overview></div>
+    
+  };
   return (
     <div>
+      {networkId == chainID?  
+      
       <div className="container">
         <Overview
           setStackOpen={setStackOpen}
@@ -43,7 +67,8 @@ const Home = ({
           loadWeb3={loadWeb3}
         />
         {/* <Deposits /> */}
-      </div>
+      </div> : loadBlockchainData()}
+      
     </div>
   );
 };

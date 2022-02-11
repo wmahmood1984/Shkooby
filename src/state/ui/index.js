@@ -4,6 +4,7 @@ import { contractAbi, contractAddress } from "../../config";
 import { contractAbi2, contractAddress2 } from "../../config2";
 import { contractAbi3, contractAddress3 } from "../../config3";
 import { contractAbi4, contractAddress4 } from "../../config4";
+import { chainID } from "../../chainID";
 
 
 
@@ -31,40 +32,45 @@ export const initWeb3 = createAsyncThunk(
         try {
             if(Web3.givenProvider){ 
                 web3 = new Web3(Web3.givenProvider);
+				const networkId = await web3.eth.net.getId()
+				if(networkId == chainID){
+					contract = new web3.eth.Contract(contractAbi, contractAddress);
+					LPEthContract = new web3.eth.Contract(contractAbi3, contractAddress3);
+					tokenContract = new web3.eth.Contract(contractAbi2,contractAddress2)
+					LPtoken = new web3.eth.Contract(contractAbi4,contractAddress4)
+					//RonContract = contract;
+					const addresses = await web3.eth.getAccounts()
+					address = addresses[0];
+					var ethBalance = await web3.eth.getBalance(address)
+					
+					thunkApi.dispatch(balance({
+						contract,
+						address,
+						tokenContract
+	
+					}))
+	
+					thunkApi.dispatch(balance2({
+						contract: LPEthContract,
+						address,
+						tokenContract
+	
+					}))
+				}
 			
              //   await Web3.givenProvider.enable()
-                //const networkId = await web3.eth.net.getId()
+        
 				//const SeekGoldAddress = "0x44540Ac7Eeb28f99156990191AbdF92DCCb8d4c5"
 				//const tokenAddres = "0x51dE1BF130514c175bb10E9a019283eb9B501C8D"
-				contract = new web3.eth.Contract(contractAbi, contractAddress);
-				LPEthContract = new web3.eth.Contract(contractAbi3, contractAddress3);
-				tokenContract = new web3.eth.Contract(contractAbi2,contractAddress2)
-				LPtoken = new web3.eth.Contract(contractAbi4,contractAddress4)
-				//RonContract = contract;
-                const addresses = await web3.eth.getAccounts()
-                address = addresses[0];
-				var ethBalance = await web3.eth.getBalance(address)
-				
-                thunkApi.dispatch(balance({
-                    contract,
-                    address,
-					tokenContract
 
-                }))
-
-				thunkApi.dispatch(balance2({
-                    contract: LPEthContract,
-                    address,
-					tokenContract
-
-                }))
 				return {
                     web3,
                     contract,
                     address,
 					contractAddress,
 					ethBalance,
-					tokenContract
+					tokenContract,
+					networkId
                                                        }
             }else {console.log("error in loading web3")
 					return {web3:null,contract:null,address:null,SeekGoldAddress:null}}
@@ -317,6 +323,7 @@ const adoptSlice = createSlice({
 		lockreward: null,
 		lockreward2: null,
 		price:null,
+		networkId: null
 
 
 
@@ -336,6 +343,7 @@ const adoptSlice = createSlice({
             state.address = action.payload.address;
 			state.ethBalance = action.payload.ethBalance;
 			state.tokenContract = action.payload.tokenContract
+			state.networkId = action.payload.networkId
 
 
          },
