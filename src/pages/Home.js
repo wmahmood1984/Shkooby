@@ -1,7 +1,7 @@
 import { Overview, Pools } from "../sections/homepageSections";
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from "react-toastify";
-import { chainID } from "../../chainID";
+import { chainID } from "../chainID";
 const Home = ({
   account,
   contract,
