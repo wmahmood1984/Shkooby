@@ -25,19 +25,28 @@ const Home = ({
     window.location.reload();
   });
 
-  const loadBlockchainData =  () => {
-    
-      toast("Please connect to main net", {
+  window.ethereum.on("accountsChanged", (account) => {
+    window.location.reload();
+  });
+
+if ( networkId && networkId != chainID){
+    console.log("sab galat he ",networkId)    
+    toast("Please connect to main net", {
         type: "error",
         position: toast.POSITION.BOTTOM_CENTER,
       });
+}
+
+  const loadBlockchainData =  () => {
+    
+
 
       return <div> <Overview></Overview></div>
     
   };
   return (
     <div>
-      {networkId == chainID?  
+      {networkId &&  networkId == chainID?  
       
       <div className="container">
         <Overview

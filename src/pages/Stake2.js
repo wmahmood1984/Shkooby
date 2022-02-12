@@ -12,6 +12,7 @@ import Web3 from "web3";
 import { useDispatch, useSelector } from 'react-redux';
 import { Approve2, Staking2 } from "../state/ui";
 import { initWeb3 } from "../state/ui/index";
+import { toast } from "react-toastify";
 const { Handle } = Slider;
 const Stake2 = ({
   contract,
@@ -40,7 +41,7 @@ const Stake2 = ({
   // const [lockedDetails, setLockedDetails] = useState([]);
   const dispatch = useDispatch()
   const approved = useSelector((state)=>{
-    return state.adoptReducer.approved2;
+    return Number(state.adoptReducer.approved2)/1000000000000000000;
   });
 
   const toggle = useSelector((state)=>{
@@ -62,8 +63,14 @@ const Stake2 = ({
 
 
   const APY = useSelector((state)=>{
-    return state.adoptReducer.APY;
+    return state.adoptReducer.APY2;
   });
+
+
+  const tokenBalance = useSelector((state)=>{
+    return state.adoptReducer.tokenBalance2;
+  });
+
 
 
 
@@ -198,13 +205,13 @@ const Stake2 = ({
   // APPROVE FUNCTION👆
 
   const approveHandler = ()=>{
-    
+    console.log("Approval function")
     dispatch(Approve2({quantity:stackValue}))
     setStackValue("")
   }
 
   const stakingHandler = (stakeId)=>{
-    //console.log("staking id in function",stakeId)
+    console.log("staking id in function",stakeId)
     dispatch(Staking2({quantity: stackValue, stakeId}))
     setStackValue("")
   }
@@ -257,12 +264,17 @@ const Stake2 = ({
 
   // STAKING BUTTON HANDLER 👇
   const stakingBtnHandler = (stakeId) => {
-    if (approved>0) {
-      stakingHandler(stakeId);
-    } else {
-      approveHandler();
-    }
+  
+      if (approved >= stackValue) {
+        stakingHandler(stakeId);
+      } else {
+        approveHandler();
+      }
+
+
+
   };
+
   // STAKING BUTTON HANDLER 👆
 
   // GET BALANCE AND CHECK APPROVAL 👇
@@ -306,8 +318,19 @@ const Stake2 = ({
   // }, [account]);
   // // GET BALANCE AND CHECK APPROVAL 👆
 
+  window.ethereum.on("accountsChanged", (account) => {
+    window.location.reload();
+  });
+
   const inputHandler = (e) => {
-    setStackValue(e.target.value);
+    if(stackValue > tokenBalance){
+      toast("Token Balance must be more than staking", {
+        type: "error",
+        position: toast.POSITION.BOTTOM_CENTER,
+      });
+    }
+setStackValue(e.target.value);
+    
   };
 
   const handle = (props) => {
@@ -336,7 +359,7 @@ const Stake2 = ({
           // ref={modalRef}
         >
           <h1 className=" text-left font-bold text-xl md:text-3xl mt-0">
-            SHKOOBY ETH LP
+            SHKOOBY-ETH LP
           </h1>
 
           <div className=" grid grid-cols-2 mt-5">
@@ -360,6 +383,7 @@ const Stake2 = ({
               inputHandler={inputHandler}
               approved={approved}
               poolData={stakeFlexiDetails}
+              tokenBalance = {tokenBalance}
             />
           ) : (
             <Locked
@@ -371,6 +395,7 @@ const Stake2 = ({
               inputHandler={inputHandler}
               approved={approved}
               poolData={stakeLockedDetails}
+              tokenBalance = {tokenBalance}
             />
           )}
         </div>
@@ -450,7 +475,12 @@ const Flexible = ({
   inputHandler,
   approved,
   poolData,
+  tokenBalance
 }) => {
+
+  console.log("approved",approved)
+  console.log("stack value", stackValue)
+  console.log("token Balance",tokenBalance)
   
   // console.log(poolData.id);
   return (
@@ -473,9 +503,10 @@ const Flexible = ({
       <div className="mt-10 primary-btn text-center">
         <button
           className="bg-primary font-bold text-xl py-2 px-8 w-full rounded-full"
+          disabled={stackValue > tokenBalance}     
           onClick={() => handler(poolData.id)}
         >
-          {approved >0 ? "Stake" : "Approve"}
+          {stackValue==0? "Enter value" :  approved >= stackValue ? "Stake" : "Approve"}
         </button>
       </div>
     </>
@@ -490,6 +521,7 @@ const Locked = ({
   inputHandler,
   approved,
   poolData,
+  tokenBalance
 }) => {
   // console.log(poolData[count]?.days);
   const count = value - 1;
@@ -497,7 +529,7 @@ const Locked = ({
   const weight = poolData[count]?.poolWeight;
   const apr = poolData[count]?.apr;
   const stakeId = poolData[count]?.id;
-  console.log("stake id",stakeId);
+
   return (
     <>
       <div className="mb-4 mt-10">
@@ -527,10 +559,11 @@ const Locked = ({
       </div>
       <div className="mt-6 md:mt-10 primary-btn">
         <button
+          disabled={stackValue > tokenBalance}
           className="bg-primary font-bold text-xl py-2 px-8 w-full rounded-full"
           onClick={() => handler(stakeId)}
         >
-          {approved > 1 ? "Stake" : "Approve"}
+          {stackValue==0? "Enter value" :  approved >= stackValue ? "Stake" : "Approve"}
         </button>
       </div>
     </>

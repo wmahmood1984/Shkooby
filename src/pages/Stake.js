@@ -12,6 +12,7 @@ import Web3 from "web3";
 import { useDispatch, useSelector } from 'react-redux';
 import { Approve, Staking } from "../state/ui";
 import { initWeb3 } from "../state/ui/index";
+import { toast } from "react-toastify";
 const { Handle } = Slider;
 const Stake = ({
   contract,
@@ -40,7 +41,7 @@ const Stake = ({
   // const [lockedDetails, setLockedDetails] = useState([]);
   const dispatch = useDispatch()
   const approved = useSelector((state)=>{
-    return state.adoptReducer.approved;
+    return Number(state.adoptReducer.approved)/1000000000000000000;
   });
 
   const toggle = useSelector((state)=>{
@@ -63,6 +64,11 @@ const Stake = ({
 
   const APY = useSelector((state)=>{
     return state.adoptReducer.APY;
+  });
+
+
+  const tokenBalance = useSelector((state)=>{
+    return state.adoptReducer.tokenBalance;
   });
 
 
@@ -199,13 +205,13 @@ const Stake = ({
   // APPROVE FUNCTION👆
 
   const approveHandler = ()=>{
-    
+    console.log("Approval function")
     dispatch(Approve({quantity:stackValue}))
     setStackValue("")
   }
 
   const stakingHandler = (stakeId)=>{
-    //console.log("staking id in function",stakeId)
+    console.log("staking id in function",stakeId)
     dispatch(Staking({quantity: stackValue, stakeId}))
     setStackValue("")
   }
@@ -258,12 +264,17 @@ const Stake = ({
 
   // STAKING BUTTON HANDLER 👇
   const stakingBtnHandler = (stakeId) => {
-    if (approved>0) {
-      stakingHandler(stakeId);
-    } else {
-      approveHandler();
-    }
+  
+      if (approved >= stackValue) {
+        stakingHandler(stakeId);
+      } else {
+        approveHandler();
+      }
+
+
+
   };
+
   // STAKING BUTTON HANDLER 👆
 
   // GET BALANCE AND CHECK APPROVAL 👇
@@ -307,8 +318,19 @@ const Stake = ({
   // }, [account]);
   // // GET BALANCE AND CHECK APPROVAL 👆
 
+  window.ethereum.on("accountsChanged", (account) => {
+    window.location.reload();
+  });
+
   const inputHandler = (e) => {
-    setStackValue(e.target.value);
+    if(stackValue > tokenBalance){
+      toast("Token Balance must be more than staking", {
+        type: "error",
+        position: toast.POSITION.BOTTOM_CENTER,
+      });
+    }
+setStackValue(e.target.value);
+    
   };
 
   const handle = (props) => {
@@ -361,6 +383,7 @@ const Stake = ({
               inputHandler={inputHandler}
               approved={approved}
               poolData={stakeFlexiDetails}
+              tokenBalance = {tokenBalance}
             />
           ) : (
             <Locked
@@ -372,6 +395,7 @@ const Stake = ({
               inputHandler={inputHandler}
               approved={approved}
               poolData={stakeLockedDetails}
+              tokenBalance = {tokenBalance}
             />
           )}
         </div>
@@ -451,7 +475,12 @@ const Flexible = ({
   inputHandler,
   approved,
   poolData,
+  tokenBalance
 }) => {
+
+  console.log("approved",approved)
+  console.log("stack value", stackValue)
+  console.log("token Balance",tokenBalance)
   
   // console.log(poolData.id);
   return (
@@ -474,9 +503,10 @@ const Flexible = ({
       <div className="mt-10 primary-btn text-center">
         <button
           className="bg-primary font-bold text-xl py-2 px-8 w-full rounded-full"
+          disabled={stackValue > tokenBalance}     
           onClick={() => handler(poolData.id)}
         >
-          {approved >0 ? "Stake" : "Approve"}
+          {stackValue==0? "Enter value" :  approved >= stackValue ? "Stake" : "Approve"}
         </button>
       </div>
     </>
@@ -491,6 +521,7 @@ const Locked = ({
   inputHandler,
   approved,
   poolData,
+  tokenBalance
 }) => {
   // console.log(poolData[count]?.days);
   const count = value - 1;
@@ -498,7 +529,7 @@ const Locked = ({
   const weight = poolData[count]?.poolWeight;
   const apr = poolData[count]?.apr;
   const stakeId = poolData[count]?.id;
-  console.log("stake id",stakeId);
+
   return (
     <>
       <div className="mb-4 mt-10">
@@ -528,10 +559,11 @@ const Locked = ({
       </div>
       <div className="mt-6 md:mt-10 primary-btn">
         <button
+          disabled={stackValue > tokenBalance}
           className="bg-primary font-bold text-xl py-2 px-8 w-full rounded-full"
           onClick={() => handler(stakeId)}
         >
-          {approved > 1 ? "Stake" : "Approve"}
+          {stackValue==0? "Enter value" :  approved >= stackValue ? "Stake" : "Approve"}
         </button>
       </div>
     </>

@@ -33,6 +33,7 @@ export const initWeb3 = createAsyncThunk(
             if(Web3.givenProvider){ 
                 web3 = new Web3(Web3.givenProvider);
 				const networkId = await web3.eth.net.getId()
+				await Web3.givenProvider.enable()
 				if(networkId == chainID){
 					contract = new web3.eth.Contract(contractAbi, contractAddress);
 					LPEthContract = new web3.eth.Contract(contractAbi3, contractAddress3);
@@ -58,7 +59,7 @@ export const initWeb3 = createAsyncThunk(
 					}))
 				}
 			
-             //   await Web3.givenProvider.enable()
+
         
 				//const SeekGoldAddress = "0x44540Ac7Eeb28f99156990191AbdF92DCCb8d4c5"
 				//const tokenAddres = "0x51dE1BF130514c175bb10E9a019283eb9B501C8D"
@@ -104,14 +105,15 @@ export const balance = createAsyncThunk("balance",
 			const price = await contract.methods.getPrice(web3.utils.toWei("1","ether")).call()
 			const balance2 = await contract.methods.StakMapping(address,2).call()
 			const balance3 = await contract.methods.StakMapping(address,3).call()
+			const tokenBalance = await tokenContract.methods.balanceOf(address).call()
 
 			const unClaimedReward2 = balance2 == 0? null: await contract.methods.calculateReward(1).call({from:address})
 			const unClaimedReward3 = balance3 == 0? null:  await contract.methods.calculateReward(1).call({from:address})
 			
 			const UserDetails = await contract.methods.getUserDetails().call({from:address})
-			
 
-             return {price,lockreward,balance1,unClaimedReward1,totalStaked,totalClaimed,claimedReward,lockedRewardFetched,APY,approved, balance2,balance3,unClaimedReward2,unClaimedReward3,UserDetails}
+
+             return {price,lockreward,balance1,unClaimedReward1,totalStaked,totalClaimed,claimedReward,lockedRewardFetched,APY,approved, balance2,balance3,unClaimedReward2,unClaimedReward3,UserDetails,tokenBalance}
 
         } catch (error) {
             console.log("Error in ArrayThunk",error)
@@ -140,6 +142,8 @@ export const balance = createAsyncThunk("balance",
 			const approved = await LPtoken.methods.allowance(address,contractAddress3).call()
 			const lockreward = await contract.methods.getLockReward().call()
 
+			const tokenBalance2 = await LPtoken.methods.balanceOf(address).call()
+
 			const balance2 = await contract.methods.StakMapping(address,2).call()
 			const balance3 = await contract.methods.StakMapping(address,3).call()
 
@@ -147,9 +151,9 @@ export const balance = createAsyncThunk("balance",
 			const unClaimedReward3 = balance3 == 0? null:  await contract.methods.calculateReward(1).call({from:address})
 			
 			const UserDetails = await contract.methods.getUserDetails().call({from:address})
-			
+			console.log("token balance main",tokenBalance2)				
 
-             return {lockreward,balance1,unClaimedReward1,totalStaked,totalClaimed,claimedReward,lockedRewardFetched,APY,approved, balance2,balance3,unClaimedReward2,unClaimedReward3,UserDetails}
+             return {lockreward,balance1,unClaimedReward1,totalStaked,totalClaimed,claimedReward,lockedRewardFetched,APY,approved, balance2,balance3,unClaimedReward2,unClaimedReward3,UserDetails,tokenBalance2}
 
         } catch (error) {
             console.log("Error in balance2",error)
@@ -323,7 +327,9 @@ const adoptSlice = createSlice({
 		lockreward: null,
 		lockreward2: null,
 		price:null,
-		networkId: null
+		networkId: null,
+		tokenBalance2 : null,
+		tokenBalance: null
 
 
 
@@ -365,6 +371,7 @@ const adoptSlice = createSlice({
 			state.UserDetails = action.payload.UserDetails
 			state.lockreward = action.payload.lockreward
 			state.price = action.payload.price
+			state.tokenBalance = action.payload.tokenBalance
 		},
 
 
@@ -385,6 +392,7 @@ const adoptSlice = createSlice({
 			state.approved2 = action.payload.approved
 			state.UserDetails2 = action.payload.UserDetails
 			state.lockreward2 = action.payload.lockreward
+			state.tokenBalance2 = action.payload.tokenBalance2
 			//state.price = action.payload.price
 		},
 
