@@ -19,29 +19,60 @@ const reviewData = [
     name: "Flexi Pool",
     amount: "1030 SHKOOBY",
     reward: "5.2 SHKOOBY",
-    timer: "23 Nov 2323 12.00",
+    timer: 0,
   },
   {
     img: Slogo,
     name: "Flexi Pool",
     amount: "$0.00",
     reward: "4.3 SHKOOBY",
-    timer: "23 Nov 2323 12.00",
+    timer: 2592000,
   },
   {
     img: Slogo,
     name: "Locked Pool (1 to 6 Months)",
     amount: "$5.78",
     reward: "2.1 SHKOOBY",
-    timer: "23 Nov 2323 12.00",
+    timer: 7776000,
+  },
+  // {
+  //   img: Slogo,
+  //   name: "Flexi Pool",
+  //   amount: "$74.76",
+  //   reward: "3.4 SHKOOBY",
+  //   timer: "23 Nov 2323 12.00",
+  // },
+];
+
+const reviewData2 = [
+  {
+    img: Slogo,
+    name: "Flexi Pool",
+    amount: "1030 SHKOOBY",
+    reward: "5.2 SHKOOBY",
+    timer: 0,
   },
   {
     img: Slogo,
     name: "Flexi Pool",
-    amount: "$74.76",
-    reward: "3.4 SHKOOBY",
-    timer: "23 Nov 2323 12.00",
+    amount: "$0.00",
+    reward: "4.3 SHKOOBY",
+    timer: 2592000,
   },
+  {
+    img: Slogo,
+    name: "Locked Pool (1 to 6 Months)",
+    amount: "$5.78",
+    reward: "2.1 SHKOOBY",
+    timer: 7776000,
+  },
+  // {
+  //   img: Slogo,
+  //   name: "Flexi Pool",
+  //   amount: "$74.76",
+  //   reward: "3.4 SHKOOBY",
+  //   timer: "23 Nov 2323 12.00",
+  // },
 ];
 dayjs.extend(utc);
 // const date = dayjs.utc(1318781876 * 100).format();
@@ -65,6 +96,8 @@ const Reward = ({
   const [lessAmount, setLessAmount] = useState(false);
   const [totalClaimedBalance, setTotalClaimedBalance] = useState(0);
   const dispatch = useDispatch()
+
+  
   useEffect(() => {
     // const getData = async () => {
     //   if (contract) {
@@ -129,6 +162,16 @@ const Reward = ({
     dispatch(unStaking2({stakeId}))
     
   }
+
+  var currentTimeinSeconds = new Date().getTime() / 1000
+
+
+  console.log("time in ", stakesDetails && Number(stakesDetails[0].timeIn))
+  console.log("time to add ", stakesDetails && reviewData[stakesDetails[0].id-1].timer)
+  console.log("total", stakesDetails&&  Number(stakesDetails[0].timeIn)+ reviewData[stakesDetails[0].id-1].timer)
+  console.log("current time ", currentTimeinSeconds)
+
+console.log("check",stakesDetails&& Number(stakesDetails[0].timeIn) + reviewData[stakesDetails[0].id-1].timer < currentTimeinSeconds)
   
   // const claim = (stakeId) => {
   //   if (contract) {
@@ -315,14 +358,20 @@ const Reward = ({
                           className="bg-primary py-2 px-4 rounded-md"
                           onClick={() => claim(v.id)}
                         >
-                          Claim
+                          Claim 
                         </button>
+                        {v.staked>0 && (Number(v.timeIn) + reviewData[v.id-1].timer) < currentTimeinSeconds ?
                         <button
-                          className="bg-secondary ml-2 py-2 px-4 rounded-md"
-                          onClick={() => unStake(v.id)}
-                        >
-                          UnStake
-                        </button>
+
+                        className="bg-secondary ml-2 py-2 px-4 rounded-md"
+
+                        onClick={() => unStake(v.id)}
+                      >
+                        UnStake 
+                      </button>: null
+                        
+                        }
+                        
                       </div>
                     </div>
                   </div>
@@ -347,7 +396,7 @@ const Reward = ({
               //         .slice(0, 10);
               const stackBalance = v.staked/1000000000000000000;
               const claimableBalance = (v.unClaimed/1000000000000000000).toFixed(0)//Web3.utils.fromWei(v[0][5], "ether");
-              const totalRewards = (v.unClaimed/1000000000000000000).toFixed(5)//Web3.utils.fromWei(v[0][3], "ether");
+              const totalRewards = (v.unClaimed/1000000000000000000).toFixed(0)//Web3.utils.fromWei(v[0][3], "ether");
 
               return (
                 <div
@@ -360,8 +409,8 @@ const Reward = ({
                       <p className="ml-3 font-semibold  text-lg">
                         <p>
                           {Number(v.id) === 1
-                            ? `Flexi Pool`
-                            : `Locked Pool ${v.id==2? 30:90} Days`}
+                            ? `SHK-ETH Flexi Pool`
+                            : `SHK-ETH Locked Pool ${v.id==2? 30:90} Days`}
                         </p>
                         {/* <p className="text-xs block text-primary">
                           Created: {date}
@@ -388,12 +437,17 @@ const Reward = ({
                       >
                         Claim
                       </button>
-                      <button
+                      {v.staked>0 && (Number(v.timeIn) + reviewData2[v.id-1].timer) < currentTimeinSeconds ?
+                        <button
+
                         className="bg-secondary ml-2 py-2 px-4 rounded-md"
-                        onClick={() => unStake2(v.id)}
+
+                        onClick={() => unStake(v.id)}
                       >
-                        UnStake
-                      </button>
+                        UnStake 
+                      </button>: null
+                        
+                        }
                     </div>
                   </div>
                 </div>

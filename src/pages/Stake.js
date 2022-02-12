@@ -68,7 +68,7 @@ const Stake = ({
 
 
   const tokenBalance = useSelector((state)=>{
-    return state.adoptReducer.tokenBalance;
+    return Number(state.adoptReducer.tokenBalance)/1000000000000000000;
   });
 
 
@@ -264,12 +264,19 @@ const Stake = ({
 
   // STAKING BUTTON HANDLER 👇
   const stakingBtnHandler = (stakeId) => {
-  
-      if (approved >= stackValue) {
-        stakingHandler(stakeId);
-      } else {
-        approveHandler();
-      }
+  if(stackValue < 1){
+    toast("Value cannot be less than 1", {
+      type: "error",
+      position: toast.POSITION.BOTTOM_CENTER,
+    });
+  }else {
+    if (approved >= stackValue) {
+      stakingHandler(stakeId);
+    } else {
+      approveHandler();
+    }
+  }
+      
 
 
 
@@ -324,7 +331,7 @@ const Stake = ({
 
   const inputHandler = (e) => {
     if(stackValue > tokenBalance){
-      toast("Token Balance must be more than staking", {
+      toast("You dont have enough tokens to stake", {
         type: "error",
         position: toast.POSITION.BOTTOM_CENTER,
       });
@@ -486,7 +493,7 @@ const Flexible = ({
   return (
     <>
       <p className="mt-8 mb-4 font-semibold  text-sm md:text-lg">
-        Balance: {Number(balance).toFixed(2)} SHKOOBY
+        Balance: {Number(tokenBalance).toFixed(2)} SHKOOBY
       </p>
       <StackInput stackValue={stackValue} inputHandler={inputHandler} />
       <p className="text-left text-base my-4">
@@ -545,7 +552,7 @@ const Locked = ({
       </div>
       <p className="mt-4 mb-4 font-semibold text-lg">
         {" "}
-        Balance: {Number(balance).toFixed(2)} SHKOOBY
+        Balance: {Number(tokenBalance).toFixed(2)} SHKOOBY
       </p>
       <StackInput stackValue={stackValue} inputHandler={inputHandler} />
       <p className="text-left text-base my-4">Est. APR: {Number(apr)}%</p>

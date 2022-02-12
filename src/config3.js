@@ -262,6 +262,11 @@ export const contractAbi3 = [
 								"internalType": "uint256",
 								"name": "unClaimed",
 								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "timeIn",
+								"type": "uint256"
 							}
 						],
 						"internalType": "struct ShkoobyLPStaking.DetailsStruct",
@@ -284,6 +289,11 @@ export const contractAbi3 = [
 								"internalType": "uint256",
 								"name": "unClaimed",
 								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "timeIn",
+								"type": "uint256"
 							}
 						],
 						"internalType": "struct ShkoobyLPStaking.DetailsStruct",
@@ -305,6 +315,11 @@ export const contractAbi3 = [
 							{
 								"internalType": "uint256",
 								"name": "unClaimed",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "timeIn",
 								"type": "uint256"
 							}
 						],
@@ -645,4 +660,4 @@ export const contractAbi3 = [
 
 // export const contractAddress = "0xD73eE48F78da0B851892A60772acC9d0218374FE";
 // export const contractAddress = "0x25A0d5147BaF36D6DE8d85EA461162810870Dd74";
-export const contractAddress3 = "0x7c8cF036c71256964Ca854eE594b8ab3C2D8F527";
+export const contractAddress3 = "0xA44fFF2E150403439e8dE93736490221d4EFC9fc";

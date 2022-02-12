@@ -281,6 +281,11 @@ export const contractAbi = [
 								"internalType": "uint256",
 								"name": "unClaimed",
 								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "timeIn",
+								"type": "uint256"
 							}
 						],
 						"internalType": "struct ShkoobyStaking.DetailsStruct",
@@ -302,6 +307,11 @@ export const contractAbi = [
 							{
 								"internalType": "uint256",
 								"name": "unClaimed",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "timeIn",
 								"type": "uint256"
 							}
 						],
@@ -325,6 +335,11 @@ export const contractAbi = [
 								"internalType": "uint256",
 								"name": "unClaimed",
 								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "timeIn",
+								"type": "uint256"
 							}
 						],
 						"internalType": "struct ShkoobyStaking.DetailsStruct",
@@ -335,6 +350,19 @@ export const contractAbi = [
 				"internalType": "struct ShkoobyStaking.DetailsStructArray",
 				"name": "",
 				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getsomething",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -416,6 +444,19 @@ export const contractAbi = [
 	{
 		"inputs": [],
 		"name": "lockRewardCounter",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "magnitude",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -663,11 +704,14 @@ export const contractAbi = [
 ];
 // export const contractAddress = "0xD73eE48F78da0B851892A60772acC9d0218374FE";
 // export const contractAddress = "0x25A0d5147BaF36D6DE8d85EA461162810870Dd74";
-export const contractAddress = "0xB0C6c84064Dec72982030436D9DAC3FBb53D6D2D";
+export const contractAddress = "0x432d0E8b2b45Ca80313bb71Ed912dDB93c5fB712";
 
 
 
 //Shkooby Address 0x11B75688CE80508151d1022aDFEC86C23Bac2b18
-// LP pool address 0x360e4ddb59b1e02e7a81bffd3cac7f1fe7fec73a
+// LP pool address 0x360e4ddb59b1E02E7a81bffd3cAc7F1Fe7FeC73A
+
+
+// Main contract   0x203CA6516d2649a6a297fAABe738d02C6eD24CE3
 
 

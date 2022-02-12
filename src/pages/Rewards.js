@@ -16,30 +16,30 @@ const Rewards = ({
 }) => {
   const [stakesDetails, setStakesDetails] = useState([]);
   useEffect(() => {
-    const getStakes = async () => {
-      try {
-        if (contract) {
-          const data = await contract.methods
-            .getUserStakeIds()
-            .call({ from: account });
+    // const getStakes = async () => {
+    //   try {
+    //     if (contract) {
+    //       const data = await contract.methods
+    //         .getUserStakeIds()
+    //         .call({ from: account });
 
-          // console.log(data.length, stakesDetails.length);
-          if (data.length > stakesDetails.length) {
-            data.forEach(async (el) => {
-              const stakesDetail = await contract.methods
-                .getUserStakeDetails(el)
-                .call();
+    //       // console.log(data.length, stakesDetails.length);
+    //       if (data.length > stakesDetails.length) {
+    //         data.forEach(async (el) => {
+    //           const stakesDetail = await contract.methods
+    //             .getUserStakeDetails(el)
+    //             .call();
 
-              setStakesDetails((prev) => [...prev, stakesDetail]);
-            });
-          }
-          console.log(data, stakesDetails);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getStakes();
+    //           setStakesDetails((prev) => [...prev, stakesDetail]);
+    //         });
+    //       }
+    //       console.log(data, stakesDetails);
+    //     }
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
+    // getStakes();
   }, [account, contract]);
 
   return (

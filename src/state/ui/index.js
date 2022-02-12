@@ -111,8 +111,7 @@ export const balance = createAsyncThunk("balance",
 			const unClaimedReward3 = balance3 == 0? null:  await contract.methods.calculateReward(1).call({from:address})
 			
 			const UserDetails = await contract.methods.getUserDetails().call({from:address})
-
-
+			
              return {price,lockreward,balance1,unClaimedReward1,totalStaked,totalClaimed,claimedReward,lockedRewardFetched,APY,approved, balance2,balance3,unClaimedReward2,unClaimedReward3,UserDetails,tokenBalance}
 
         } catch (error) {
@@ -151,7 +150,7 @@ export const balance = createAsyncThunk("balance",
 			const unClaimedReward3 = balance3 == 0? null:  await contract.methods.calculateReward(1).call({from:address})
 			
 			const UserDetails = await contract.methods.getUserDetails().call({from:address})
-			console.log("token balance main",tokenBalance2)				
+			console.log("token balance main",UserDetails)				
 
              return {lockreward,balance1,unClaimedReward1,totalStaked,totalClaimed,claimedReward,lockedRewardFetched,APY,approved, balance2,balance3,unClaimedReward2,unClaimedReward3,UserDetails,tokenBalance2}
 
